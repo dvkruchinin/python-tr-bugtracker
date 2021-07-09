@@ -10,6 +10,7 @@ Desc:
 import poplib
 import email
 import time
+import quopri
 
 
 class MailHelper:
@@ -27,11 +28,13 @@ class MailHelper:
                 for n in range(num):
                     msglines = pop.retr(n+1)[1]
                     msgtext = "\n".join(map(lambda x: x.decode("utf-8"), msglines))
-                    msg = email.message_from_string(msgtext)
+                    body = quopri.decodestring(msgtext).decode('utf-8')
+                    msg = email.message_from_string(body)
                     if msg.get("Subject") == subject:
                         pop.dele(n+1)
                         pop.quit()
+                        msg.get_payload()
                         return msg.get_payload()
             pop.quit()
-            time.sleep(3)
+            time.sleep(10)
         return None
