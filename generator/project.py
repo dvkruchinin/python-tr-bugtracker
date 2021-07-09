@@ -16,7 +16,7 @@ import sys
 from model.project import Project
 
 try:
-    opts, args = getopt.getopt(sys.argv[1:], "n:f:", ["number of groups", "file"])
+    opts, args = getopt.getopt(sys.argv[1:], "n:f:", ["number of projects", "file"])
 except getopt.GetoptError as err:
     getopt.usage()
     sys.exit(2)
